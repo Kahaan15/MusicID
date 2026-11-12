@@ -1,0 +1,16 @@
+__pycache__/
+*.pyc
+# dataset, caches and intermediate results (13 GB; rebuild with research/download_fma.py etc.)
+data/
+# app library index (300 MB; rebuild with: python build_library.py)
+library/
+# rendered equation images used while building the PDFs
+research/results/eq/
+# local audio, recordings and personal/old data files (kept on disk, not in the repo)
+*.wav
+*.m4a
+/*.mp3
+lastSongsMatched.txt
+SampleFingerprint.txt
+fingerprintDatabase.txt
+songMap.txt

@@ -1,0 +1,77 @@
+MusicID - how to run
+====================
+
+Run every command from this folder (ShazamCVT).
+
+
+1. Install (once)
+-----------------
+    pip install -r requirements.txt
+
+
+2. Start the app
+----------------
+    python Main.py
+
+Press the mic button and play a song near the laptop microphone.
+The app checks every second and shows the song, where in the song it heard
+the clip, and the chance of a false match.
+
+
+3. Add your own song (e.g. a Bollywood song)
+--------------------------------------------
+    python add_song.py
+
+    - type:  add
+    - path:  the audio file, e.g. kesariya.mp3   (MP3, WAV or FLAC)
+    - then:  song name, artist, album (or Single), release year
+
+Close and reopen the app afterwards; it loads the library when it starts.
+Use the same recording you will play (a remix or live version will not match).
+
+An .m4a file must be converted first:
+    ffmpeg -i song.m4a song.wav
+
+
+4. Identify an audio file without the app
+-----------------------------------------
+    python add_song.py
+    - type:  detect
+    - path:  the recording
+
+
+5. Run the tests
+----------------
+    python -m pytest tests
+
+
+6. Rebuild the song library from scratch (optional)
+---------------------------------------------------
+Needs the FMA dataset (7.7 GB download, Creative Commons music):
+
+    python research/download_fma.py
+    python -c "from research import data; data.build_cache()"
+    python build_library.py
+
+
+7. Reproduce the experiments, figures and PDFs (optional, a few hours)
+---------------------------------------------------------------------
+After step 6 (the first two commands):
+
+    python -m research.bench build
+    python -m research.bench prepare
+    python -m research.bench patch_v1
+    python -m research.bench classical
+    python -m research.train_neural
+    python -m research.bench neural
+    python -m research.bench conformal
+    python -m research.bench rerun_seq
+    python -m research.baseline_audfprint
+    python -m research.filter_study
+    python -m research.analyze
+    python -m research.make_report
+    python -m research.make_overview
+    python -m research.make_readme_chart
+
+The audfprint baseline needs its source in data/ext/audfprint-master
+(github.com/dpwe/audfprint).
